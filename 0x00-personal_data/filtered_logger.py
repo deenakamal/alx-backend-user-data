@@ -9,7 +9,7 @@ def filter_datum(fields: List[str], redaction: str,
     """ A function that returns the log message obfuscated. """
     for field in fields:
         pattren = rf"{field}=.*?{separator}"
-        replacement = f"{redaction}{separator}"
-        message = re.sub(pattern, replacement, message)
+        replacement = f"{field}={redaction}{separator}"
+        message = re.sub(pattren, replacement, message)
 
     return message
