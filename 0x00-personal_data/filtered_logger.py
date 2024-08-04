@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module """
 import re
-form typing import List
+from typing import List
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -10,6 +10,6 @@ def filter_datum(fields: List[str], redaction: str,
     for field in fields:
         pattren = rf"{field}=.*?{separator}"
         replacement = f"{redaction}{separator}"
-        message = re.sub(pattern. replacement, message)
+        message = re.sub(pattern, replacement, message)
 
-        return message
+    return message
