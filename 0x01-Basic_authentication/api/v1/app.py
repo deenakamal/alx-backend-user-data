@@ -43,12 +43,14 @@ def forbidden_error(error) -> str:
 
 @app.before_request
 def before_request():
-    """this function called before every request"""
-    paths_without_auth = ['/api/v1/status/','/api/v1/unauthorized/',
+    """This function is called before every request."""
+    paths_without_auth = ['/api/v1/status/',
+                          '/api/v1/unauthorized/',
                           '/api/v1/forbidden/']
 
     if auth is None:
         return
+
     if not auth.require_auth(request.path, paths_without_auth):
         return
 
