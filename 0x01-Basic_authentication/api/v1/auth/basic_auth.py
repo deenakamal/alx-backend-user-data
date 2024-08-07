@@ -53,17 +53,13 @@ class BasicAuth(Auth):
             return None
 
         users = User().search({'email': user_email})
-
         if not users:
             return None
 
         user = users[0]
-
         is_valid_pwd = user.is_valid_password(user_pwd)
-
         if not is_valid_pwd:
             return None
-
         return user
 
     def current_user(self, request=None) -> TypeVar('User'):
