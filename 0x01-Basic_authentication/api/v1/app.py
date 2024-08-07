@@ -17,6 +17,7 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 auth_type = getenv('AUTH_TYPE')
+
 if auth_type == 'basic_auth':
     auth = BasicAuth()
 elif auth_type:
@@ -25,19 +26,20 @@ elif auth_type:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler"""
+    """ Not found handler
+    """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
-def unauthorized_error(error) -> str:
-    """Unauthorized error handler"""
+def handle_unauthorized_error(error) -> str:
+    """Unauthorized handler"""
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def forbidden_error(error) -> str:
-    """Forbidden error handler"""
+def handle_forbidden_error(error) -> str:
+    """Forbidden handler"""
     return jsonify({"error": "Forbidden"}), 403
 
 
