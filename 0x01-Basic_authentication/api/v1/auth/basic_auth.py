@@ -5,8 +5,6 @@ from typing import Tuple, TypeVar
 import base64
 from models.user import User
 
-User = TypeVar('User')
-
 
 class BasicAuth(Auth):
     """BasicAuth class inherits from Auth"""
@@ -48,10 +46,16 @@ class BasicAuth(Auth):
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """Returns a User instance based on email and password"""
+        if user_email is None or user_pwd is None:
+            return None
         if not isinstance(user_email, str) or not isinstance(user_pwd, str):
             return None
-        user = User.search(user_email)
-        if not user or not user.is_valid_password(user_pwd):
+        user = User().search(user_email)
+        if not user:
+            return None
+        user = uses[0]
+
+        if not user.is_valid_password(user_pwd):
             return None
         return user
 
