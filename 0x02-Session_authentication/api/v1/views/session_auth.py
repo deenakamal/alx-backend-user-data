@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""Module of Session Authentication views.
+"""Defines session_auth view"""
 
-This module defines routes related to session authentication, including
-login and logout functionality.
-"""
+
 from api.v1.views import app_views
 from flask import jsonify, request, abort
 from models.user import User
