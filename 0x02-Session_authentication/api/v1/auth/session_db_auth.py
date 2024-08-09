@@ -59,8 +59,6 @@ class SessionDBAuth(SessionExpAuth):
 
     def destroy_session(self, request=None):
         """Destroys the session associated with the given request
-        Returns:
-            bool: True if the session was successfully destroyed, False otherwise
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
