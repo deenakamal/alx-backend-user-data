@@ -54,8 +54,7 @@ def before_request():
                           '/api/v1/forbidden/',
                           '/api/v1/auth_session/login/']
 
-    if (auth is None
-            or not auth.require_auth(request.path, paths_without_auth)):
+    if auth is None or not auth.require_auth(request.path, paths_without_auth):
         return
 
     if (auth.authorization_header(request) is None
@@ -64,6 +63,7 @@ def before_request():
 
     if auth.current_user(request) is None:
         abort(403)
+
     request.current_user = auth.current_user(request)
 
 
