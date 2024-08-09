@@ -5,9 +5,9 @@ This module defines routes related to session authentication, including
 login and logout functionality.
 """
 from api.v1.views import app_views
-from flask import abort, jsonify, request
-from os import getenv
-
+from flask import jsonify, request, abort
+from models.user import User
+import os
 
 @app_views.route("/auth_session/login", methods=["POST"], strict_slashes=False)
 def session_authentication():
@@ -24,12 +24,10 @@ def session_authentication():
     if password is None or password == "":
         return jsonify({"error": "password missing"}), 400
 
-    from models.user import User
-
-    user = User.search({"email": email})
+    users= User.search({"email": email})
     if not user:
         return jsonify({"error": "no user found for this email"}), 404
-    user = user[0]
+    user = users[0]
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
 
@@ -59,4 +57,3 @@ def session_logout():
     if auth.destroy_session(request):
         return jsonify({}), 200
     abort(404)
-
