@@ -11,10 +11,8 @@ class SessionDBAuth(SessionExpAuth):
 
     def create_session(self, user_id=None):
         """Creates a session ID and stores it in the database
-        
         Args:
             user_id (str): The ID of the user for whom the session is created
-        
         Returns:
             str: The generated session ID if successful, None otherwise
         """
@@ -29,16 +27,13 @@ class SessionDBAuth(SessionExpAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """Returns the user ID associated with a given session ID
-        
         Args:
             session_id (str): The ID of the session to look up
-        
         Returns:
             str: The user ID if the session is valid, None otherwise
         """
         if not session_id or not isinstance(session_id, str):
             return None
-
         users = UserSession().search({'session_id': session_id})
         if not users:
             return None
@@ -51,18 +46,16 @@ class SessionDBAuth(SessionExpAuth):
 
     def is_session_expired(self, created_at):
         """Checks if a session has expired
-        
         Args:
             created_at (datetime): The creation time of the session
-        
         Returns:
             bool: True if the session is expired, False otherwise
         """
         if self.session_duration <= 0:
             return True
 
-        expiration_time = created_at + timedelta(seconds=self.session_duration)
-        return expiration_time < datetime.now()
+        time = created_at + timedelta(seconds=self.session_duration)
+        return time < datetime.now()
 
     def destroy_session(self, request=None):
         """Destroys the session associated with the given request
