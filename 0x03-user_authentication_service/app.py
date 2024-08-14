@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Defines app module"""
-
+"""App module"""
 from flask import Flask, jsonify, request, abort, redirect, url_for
 from auth import Auth
 
@@ -11,13 +10,13 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def index():
-    """Return the home page payload"""
+    """Home Page"""
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def register():
-    """End point for register"""
+    """Register"""
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -30,7 +29,7 @@ def register():
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
-    """Implement login endpoint"""
+    """Login endpoint"""
     email = request.form.get('email')
     password = request.form.get('password')
     is_valid_login = AUTH.valid_login(email, password)
@@ -59,7 +58,7 @@ def logout():
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
-    """Gets the user profile"""
+    """Profile"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
@@ -70,7 +69,7 @@ def profile():
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
-    """Implement reset password endpoint"""
+    """Reset password endpoint"""
     email = request.form.get('email')
     try:
         reset_token = AUTH.get_reset_password_token(email)
@@ -81,7 +80,7 @@ def get_reset_password_token():
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
-    """Update password"""
+    """Update password page endpoint"""
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
