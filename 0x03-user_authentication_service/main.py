@@ -11,7 +11,7 @@ def register_user(email: str, password: str) -> None:
     url = f"{BASE_URL}/users"
     payload = {"email": email, "password": password}
     response = requests.post(url, data=payload)
-    assert (response.status_code == 200, 
+    assert (response.status_code == 200,
             f"Expected status code 200, but got {response.status_code}")
     assert (response.json() == {"email": email, "message": "user created"},
             f"Unexpected response: {response.json()}")
